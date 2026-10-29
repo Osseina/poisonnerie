@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // IMPORTANT: Importer Link
+import { Link, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
@@ -21,6 +21,27 @@ const Sidebar = () => {
 
   const isGestionnaire = user.profile === 'gestionnaire';
   const isVendeur = user.profile === 'vendeur';
+
+  const location = useLocation();
+
+  // Sur mobile (< 1200px) le menu est caché par défaut et s'ouvre avec la classe
+  // "toggle-sidebar" sur <body>. On le referme après chaque changement de page.
+  useEffect(() => {
+    if (window.innerWidth < 1200) {
+      document.body.classList.remove('toggle-sidebar');
+    }
+  }, [location.pathname]);
+
+  // Sur mobile, toucher le contenu à côté du menu ouvert le referme
+  useEffect(() => {
+    const fermerSiMobile = (e) => {
+      if (window.innerWidth >= 1200 || !document.body.classList.contains('toggle-sidebar')) return;
+      if (e.target.closest('#sidebar') || e.target.closest('.toggle-sidebar-btn')) return;
+      document.body.classList.remove('toggle-sidebar');
+    };
+    document.addEventListener('click', fermerSiMobile);
+    return () => document.removeEventListener('click', fermerSiMobile);
+  }, []);
 
   return (
     <aside id="sidebar" className="sidebar">

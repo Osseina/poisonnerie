@@ -215,7 +215,12 @@ const Header = () => {
         <Link to="/" className="logo d-flex align-items-center">
           <img src={process.env.PUBLIC_URL + "/assets/img/logo1.png"} alt="Poissonnerie Grema" />
         </Link>
-        <i className="bi bi-list toggle-sidebar-btn"></i>
+        <i
+          className="bi bi-list toggle-sidebar-btn"
+          role="button"
+          aria-label="Afficher ou masquer le menu"
+          onClick={() => document.body.classList.toggle('toggle-sidebar')}
+        ></i>
       </div>
 
       <div className="search-bar">
