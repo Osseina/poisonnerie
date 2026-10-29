@@ -181,7 +181,7 @@ const Login = () => {
                 <div className="mb-3">
                   {/* Logo avec image */}
                   <img 
-                    src="/assets/img/logo1.png" 
+                    src={process.env.PUBLIC_URL + "/assets/img/logo1.png"} 
                     alt="Poissonnerie Grema" 
                     style={{
                       width: '150px',

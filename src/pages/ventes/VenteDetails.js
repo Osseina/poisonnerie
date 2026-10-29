@@ -124,7 +124,7 @@ const VenteDetails = () => {
         <body>
           <div class="facture">
             <div class="header">
-              <img src="/assets/img/logo1.png" alt="Logo" style="max-height:80px" />
+              <img src="${window.location.origin}${window.location.pathname.replace(/[^/]*$/, '')}assets/img/logo1.png" alt="Logo" style="max-height:80px" />
               <h2>Poissonnerie Grema</h2>
               <p>Niamey, Niger</p>
               <p>Tel: 90 12 34 56</p>
