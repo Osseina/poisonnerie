@@ -50,8 +50,8 @@ const StockHistorique = () => {
       const mouvementsData = response.data.mouvements || [];
       
       // Calculer les statistiques
-      const entrees = mouvementsData.filter(m => m.type_mouvement === 'entree').reduce((acc, m) => acc + m.quantite, 0);
-      const sorties = mouvementsData.filter(m => m.type_mouvement === 'sortie').reduce((acc, m) => acc + m.quantite, 0);
+      const entrees = mouvementsData.filter(m => m.type_mouvement === 'entree').reduce((acc, m) => acc + (parseFloat(m.quantite) || 0), 0);
+      const sorties = mouvementsData.filter(m => m.type_mouvement === 'sortie').reduce((acc, m) => acc + (parseFloat(m.quantite) || 0), 0);
       const inventaires = mouvementsData.filter(m => m.type_mouvement === 'inventaire').length;
       
       setStats({
