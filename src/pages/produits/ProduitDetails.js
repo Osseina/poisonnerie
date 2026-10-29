@@ -674,6 +674,32 @@ const ProduitDetails = () => {
                     color: '#006994',
                     fontWeight: 'bold'
                   }}>
+                    <i className="bi bi-cash-coin me-2"></i>
+                    Prix de vente
+                  </div>
+                  <div className="col-lg-9 col-md-8" style={{
+                    fontFamily: 'Roboto, sans-serif',
+                    color: '#333333'
+                  }}>
+                    {produit.prix_vente != null && parseFloat(produit.prix_vente) > 0 ? (
+                      <strong style={{ color: '#28a745' }}>
+                        {parseFloat(produit.prix_vente).toLocaleString('fr-FR')} FCFA / {produit.type_vente === 'poids' ? 'kg' : 'unité'}
+                      </strong>
+                    ) : (
+                      <span className="badge bg-warning text-dark">
+                        <i className="bi bi-exclamation-triangle me-1"></i>
+                        Non défini : produit absent de la caisse
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="row mb-3">
+                  <div className="col-lg-3 col-md-4 label" style={{
+                    fontFamily: 'Montserrat, sans-serif',
+                    color: '#006994',
+                    fontWeight: 'bold'
+                  }}>
                     <i className="bi bi-box me-2"></i>
                     Stock actuel
                   </div>
@@ -790,7 +816,7 @@ const ProduitDetails = () => {
                     fontSize: '0.9rem'
                   }}>
                     <i className="bi bi-info-circle me-2" style={{ color: '#006994' }}></i>
-                    Les prix d'achat et de vente sont gérés dans les mouvements de stock.
+                    Le prix de vente se modifie dans la fiche produit ; le prix d'achat se saisit à chaque entrée de stock.
                   </div>
                 )}
               </div>

@@ -16,7 +16,7 @@ const StockEntree = () => {
   
   const [formData, setFormData] = useState({
     produit_id: '',
-    // Prix de vente (obligatoire pour tous)
+    // Prix de vente (prérempli avec le prix actuel du produit, facultatif)
     prix_vente: '',
     // Mode simple
     quantite_simple: '',
@@ -50,6 +50,13 @@ const StockEntree = () => {
     if (formData.produit_id) {
       const produit = produits.find(p => p.id === parseInt(formData.produit_id));
       setSelectedProduit(produit);
+      // Préremplir avec le prix de vente actuel du produit
+      setFormData(prev => ({
+        ...prev,
+        prix_vente: produit && produit.prix_vente != null && parseFloat(produit.prix_vente) > 0
+          ? String(parseFloat(produit.prix_vente))
+          : ''
+      }));
       setCalculs(prev => ({
         ...prev,
         unite_vente: produit?.type_vente === 'poids' ? 'kg' : 'unité'
@@ -151,18 +158,20 @@ const StockEntree = () => {
       return;
     }
 
-    // Validation du prix de vente
-    if (!formData.prix_vente || parseFloat(formData.prix_vente) <= 0) {
-      setError('Le prix de vente est requis');
+    // Prix de vente facultatif, mais jamais négatif
+    if (formData.prix_vente !== '' && parseFloat(formData.prix_vente) < 0) {
+      setError('Le prix de vente ne peut pas être négatif');
       setLoading(false);
       return;
     }
 
     try {
       let dataToSend = {
-        produit_id: parseInt(formData.produit_id),
-        prix_vente: parseFloat(formData.prix_vente)
+        produit_id: parseInt(formData.produit_id)
       };
+      if (formData.prix_vente !== '' && parseFloat(formData.prix_vente) > 0) {
+        dataToSend.prix_vente = parseFloat(formData.prix_vente);
+      }
 
       if (modeSaisie === 'simple') {
         // MODE SIMPLE : validation de la quantité et du prix d'achat
@@ -321,6 +330,12 @@ const StockEntree = () => {
           <p className="mb-1">
             Quantité ajoutée : <strong className="text-success">+{resultat.quantite_ajoutee} {resultat.unite || getUnite()}</strong>
           </p>
+          {resultat.avertissement_prix && (
+            <p className="mb-1 text-warning fw-semibold">
+              <i className="bi bi-exclamation-triangle me-1"></i>
+              {resultat.avertissement_prix}
+            </p>
+          )}
           {resultat.prix_vente > 0 && (
             <p className="mb-1">
               Prix de vente : <strong className="text-primary">{resultat.prix_vente} F CFA/{getUnite()}</strong>
@@ -413,7 +428,7 @@ const StockEntree = () => {
             <div className="mb-3">
               <label className="form-label fw-bold" style={{ color: '#006994' }}>
                 <i className="bi bi-tag me-2"></i>
-                Prix de vente <span className="text-danger">*</span>
+                Prix de vente
                 {selectedProduit && (
                   <span className="ms-2 text-muted">(par {getUnite()})</span>
                 )}
@@ -426,14 +441,17 @@ const StockEntree = () => {
                 onChange={handleChange}
                 min="0"
                 step="0.01"
-                placeholder="Prix de vente unitaire"
-                required
+                placeholder="Prix affiché à la caisse"
                 style={{
                   borderRadius: '8px',
                   border: '1px solid #ddd',
                   padding: '10px'
                 }}
               />
+              <small className="text-muted">
+                <i className="bi bi-info-circle me-1"></i>
+                Prérempli avec le prix actuel du produit. Modifiez-le pour changer le prix à la caisse.
+              </small>
             </div>
 
             {/* Mode de saisie */}

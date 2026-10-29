@@ -16,12 +16,12 @@ const ProduitCreate = () => {
   
   const [formData, setFormData] = useState({
     nom_produit: '',
+    // Prix de vente actuel (facultatif)
+    prix_vente: '',
     // Pour produits au poids
-    stock_initial_kg: '',
     stock_min_kg: '5',
     stock_max_kg: '100',
     // Pour produits à l'unité
-    stock_initial_unite: '',
     stock_min_unite: '5',
     stock_max_unite: '100',
     // Communs
@@ -79,16 +79,17 @@ const ProduitCreate = () => {
         type_vente: typeVente,
         fournisseur_id: formData.fournisseur_id || null,
         categorie_id: formData.categorie_id || null,
+        // Le stock démarre toujours à 0 (il évolue par les entrées de stock)
+        prix_vente: formData.prix_vente !== '' ? parseFloat(formData.prix_vente) : null,
       };
 
       if (typeVente === 'poids') {
-        dataToSend.stock_initial = formData.stock_initial_kg ? parseFloat(formData.stock_initial_kg) : 0;
         dataToSend.stock_min_kg = parseInt(formData.stock_min_kg) || 5;
         dataToSend.stock_max_kg = parseInt(formData.stock_max_kg) || 100;
       } else {
-        dataToSend.stock_initial = formData.stock_initial_unite ? parseInt(formData.stock_initial_unite) : 0;
-        dataToSend.stock_min_unite = parseInt(formData.stock_min_unite) || 5;
-        dataToSend.stock_max_unite = parseInt(formData.stock_max_unite) || 100;
+        // Le backend utilise les mêmes champs de seuils pour les deux types
+        dataToSend.stock_min_kg = parseInt(formData.stock_min_unite) || 5;
+        dataToSend.stock_max_kg = parseInt(formData.stock_max_unite) || 100;
       }
 
       await createProduit(dataToSend);
@@ -181,7 +182,7 @@ const ProduitCreate = () => {
                     color: '#666',
                     fontSize: '0.9rem'
                   }}>
-                    Les prix seront saisis lors des entrées de stock
+                    Le stock démarre à 0 et augmente avec les entrées de stock
                   </p>
                 </div>
 
@@ -271,7 +272,7 @@ const ProduitCreate = () => {
                   <div className="mb-4">
                     <h6 className="mb-3" style={{ color: '#006994', fontWeight: 'bold' }}>
                       <i className="bi bi-bar-chart me-2"></i>
-                      Gestion du stock
+                      Prix de vente et seuils d'alerte
                     </h6>
                     
                     {typeVente === 'poids' ? (
@@ -279,17 +280,17 @@ const ProduitCreate = () => {
                       <div className="row">
                         <div className="col-md-4 mb-2">
                           <label className="form-label fw-bold" style={{ color: '#006994', fontSize: '0.9rem' }}>
-                            Stock initial (kg)
+                            Prix de vente (FCFA / kg)
                           </label>
                           <input
                             type="number"
                             className="form-control"
-                            name="stock_initial_kg"
-                            value={formData.stock_initial_kg}
+                            name="prix_vente"
+                            value={formData.prix_vente}
                             onChange={handleChange}
                             min="0"
-                            step="0.001"
-                            placeholder="0"
+                            step="1"
+                            placeholder="Ex : 2500"
                             style={{
                               borderRadius: '8px',
                               border: '1px solid #ddd',
@@ -339,17 +340,17 @@ const ProduitCreate = () => {
                       <div className="row">
                         <div className="col-md-4 mb-2">
                           <label className="form-label fw-bold" style={{ color: '#006994', fontSize: '0.9rem' }}>
-                            Stock initial
+                            Prix de vente (FCFA / unité)
                           </label>
                           <input
                             type="number"
                             className="form-control"
-                            name="stock_initial_unite"
-                            value={formData.stock_initial_unite}
+                            name="prix_vente"
+                            value={formData.prix_vente}
                             onChange={handleChange}
                             min="0"
                             step="1"
-                            placeholder="0"
+                            placeholder="Ex : 750"
                             style={{
                               borderRadius: '8px',
                               border: '1px solid #ddd',
@@ -458,7 +459,7 @@ const ProduitCreate = () => {
                     padding: '10px 15px'
                   }}>
                     <i className="bi bi-info-circle me-2" style={{ color: '#006994' }}></i>
-                    Le code produit sera généré automatiquement. Les prix seront saisis lors des entrées de stock.
+                    Le code produit sera généré automatiquement. Le stock démarre à 0 : ajoutez la marchandise avec une entrée de stock (où se saisit le prix d'achat).
                   </div>
 
                   {/* Boutons d'action */}

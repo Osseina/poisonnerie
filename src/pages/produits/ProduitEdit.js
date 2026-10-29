@@ -14,6 +14,7 @@ const ProduitEdit = () => {
   const [success, setSuccess] = useState('');
   const [formData, setFormData] = useState({
     nom_produit: '',
+    prix_vente: '',
     // Seuils d'alerte
     stock_min_kg: '5',
     stock_max_kg: '100',
@@ -50,6 +51,7 @@ const ProduitEdit = () => {
       
       setFormData({
         nom_produit: produit.nom_produit || '',
+        prix_vente: produit.prix_vente != null ? String(parseFloat(produit.prix_vente)) : '',
         stock_min_kg: produit.stock_min_kg || '5',
         stock_max_kg: produit.stock_max_kg || '100',
         fournisseur_id: produit.fournisseur_id || '',
@@ -88,9 +90,10 @@ const ProduitEdit = () => {
     }
 
     try {
-      // Préparer les données (SANS LES PRIX)
+      // Le prix d'achat reste géré par les entrées de stock
       const dataToSend = {
         nom_produit: formData.nom_produit,
+        prix_vente: formData.prix_vente !== '' ? parseFloat(formData.prix_vente) : null,
         fournisseur_id: formData.fournisseur_id ? parseInt(formData.fournisseur_id) : null,
         categorie_id: formData.categorie_id ? parseInt(formData.categorie_id) : null,
         est_actif: formData.est_actif ? 1 : 0,
@@ -187,7 +190,7 @@ const ProduitEdit = () => {
                     color: '#666',
                     fontSize: '0.9rem'
                   }}>
-                    Les prix sont gérés dans les entrées de stock
+                    Le prix d'achat et les quantités sont gérés par les mouvements de stock
                   </p>
                 </div>
 
@@ -282,6 +285,33 @@ const ProduitEdit = () => {
                         Le type de vente ne peut pas être modifié
                       </small>
                     </div>
+                  </div>
+
+                  {/* Prix de vente actuel */}
+                  <div className="mb-4">
+                    <label className="form-label fw-bold" style={{ color: '#006994' }}>
+                      <i className="bi bi-cash-coin me-2"></i>
+                      Prix de vente ({typeVente === 'poids' ? 'FCFA / kg' : 'FCFA / unité'})
+                    </label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="prix_vente"
+                      value={formData.prix_vente}
+                      onChange={handleChange}
+                      min="0"
+                      step="1"
+                      placeholder="Prix affiché à la caisse"
+                      style={{
+                        borderRadius: '8px',
+                        border: '1px solid #ddd',
+                        padding: '10px'
+                      }}
+                    />
+                    <small className="text-muted">
+                      <i className="bi bi-info-circle me-1"></i>
+                      Sans prix, le produit n'apparaît pas à la caisse. Le prix d'achat se saisit dans les entrées de stock.
+                    </small>
                   </div>
 
                   {/* Seuils d'alerte */}
@@ -389,7 +419,7 @@ const ProduitEdit = () => {
                     fontSize: '0.9rem'
                   }}>
                     <i className="bi bi-info-circle me-2" style={{ color: '#006994' }}></i>
-                    Les prix et les quantités en stock sont gérés dans les mouvements de stock.
+                    Les quantités en stock et les prix d'achat sont gérés par les mouvements de stock.
                   </div>
 
                   {/* Boutons d'action */}

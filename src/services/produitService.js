@@ -54,7 +54,7 @@ export const getProduit = async (id) => {
 // ✅ Créer un produit (adapté aux nouveaux champs)
 export const createProduit = async (produitData) => {
   try {
-    // Construction des données selon le type
+    // Le stock démarre toujours à 0 côté serveur ; seul le prix de vente est saisi ici
     const dataToSend = {
       code_produit: produitData.code_produit || '',
       nom_produit: produitData.nom_produit,
@@ -62,22 +62,11 @@ export const createProduit = async (produitData) => {
       type_vente: produitData.type_vente || 'poids',
       fournisseur_id: produitData.fournisseur_id ? parseInt(produitData.fournisseur_id) : null,
       categorie_id: produitData.categorie_id ? parseInt(produitData.categorie_id) : null,
+      prix_vente: produitData.prix_vente !== undefined && produitData.prix_vente !== null && produitData.prix_vente !== ''
+        ? parseFloat(produitData.prix_vente) : null,
+      stock_min_kg: parseInt(produitData.stock_min_kg) || 5,
+      stock_max_kg: parseInt(produitData.stock_max_kg) || 100,
     };
-
-    // Ajouter les champs selon le type
-    if (produitData.type_vente === 'poids') {
-      dataToSend.prix_achat_kg = parseFloat(produitData.prix_achat_kg) || 0;
-      dataToSend.prix_vente_kg = parseFloat(produitData.prix_vente_kg) || 0;
-      dataToSend.stock_initial = parseFloat(produitData.stock_initial) || 0;
-      dataToSend.stock_min_kg = parseInt(produitData.stock_min_kg) || 5;
-      dataToSend.stock_max_kg = parseInt(produitData.stock_max_kg) || 100;
-    } else {
-      dataToSend.prix_achat_unite = parseFloat(produitData.prix_achat_unite) || 0;
-      dataToSend.prix_vente_unite = parseFloat(produitData.prix_vente_unite) || 0;
-      dataToSend.stock_initial = parseInt(produitData.stock_initial) || 0;
-      dataToSend.stock_min_unite = parseInt(produitData.stock_min_unite) || 5;
-      dataToSend.stock_max_unite = parseInt(produitData.stock_max_unite) || 100;
-    }
 
     const response = await fetch(`${API_URL}/create.php`, {
       method: 'POST',
@@ -94,28 +83,24 @@ export const createProduit = async (produitData) => {
 // ✅ Modifier un produit (adapté aux nouveaux champs)
 export const updateProduit = async (id, produitData) => {
   try {
-    // Construction des données selon le type
-    const dataToSend = {
-      code_produit: produitData.code_produit || '',
-      nom_produit: produitData.nom_produit,
-      description: produitData.description || '',
-      type_vente: produitData.type_vente,
-      fournisseur_id: produitData.fournisseur_id ? parseInt(produitData.fournisseur_id) : null,
-      categorie_id: produitData.categorie_id ? parseInt(produitData.categorie_id) : null,
-      est_actif: produitData.est_actif ? 1 : 0
-    };
-
-    // Ajouter les champs selon le type
-    if (produitData.type_vente === 'poids') {
-      dataToSend.prix_achat_kg = parseFloat(produitData.prix_achat_kg) || 0;
-      dataToSend.prix_vente_kg = parseFloat(produitData.prix_vente_kg) || 0;
-      dataToSend.stock_min_kg = parseInt(produitData.stock_min_kg) || 5;
-      dataToSend.stock_max_kg = parseInt(produitData.stock_max_kg) || 100;
-    } else {
-      dataToSend.prix_achat_unite = parseFloat(produitData.prix_achat_unite) || 0;
-      dataToSend.prix_vente_unite = parseFloat(produitData.prix_vente_unite) || 0;
-      dataToSend.stock_min_unite = parseInt(produitData.stock_min_unite) || 5;
-      dataToSend.stock_max_unite = parseInt(produitData.stock_max_unite) || 100;
+    // Seuls les champs fournis sont envoyés (le serveur ne modifie que ceux-là)
+    const dataToSend = { id };
+    const champs = ['nom_produit', 'description', 'type_vente', 'stock_min_kg', 'stock_max_kg'];
+    champs.forEach((c) => {
+      if (produitData[c] !== undefined) dataToSend[c] = produitData[c];
+    });
+    if (produitData.fournisseur_id !== undefined) {
+      dataToSend.fournisseur_id = produitData.fournisseur_id ? parseInt(produitData.fournisseur_id) : null;
+    }
+    if (produitData.categorie_id !== undefined) {
+      dataToSend.categorie_id = produitData.categorie_id ? parseInt(produitData.categorie_id) : null;
+    }
+    if (produitData.est_actif !== undefined) {
+      dataToSend.est_actif = produitData.est_actif ? 1 : 0;
+    }
+    if (produitData.prix_vente !== undefined) {
+      dataToSend.prix_vente = produitData.prix_vente === null || produitData.prix_vente === ''
+        ? null : parseFloat(produitData.prix_vente);
     }
 
     const response = await fetch(`${API_URL}/update.php?id=${id}`, {

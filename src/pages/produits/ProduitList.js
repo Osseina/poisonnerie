@@ -527,6 +527,7 @@ const ProduitList = () => {
                       <th style={{ padding: '15px' }}>Catégorie</th>
                       <th style={{ padding: '15px' }}>Fournisseur</th>
                       <th style={{ padding: '15px' }}>Type</th>
+                      <th style={{ padding: '15px' }}>Prix</th>
                       <th style={{ padding: '15px' }}>Stock</th>
                       <th style={{ padding: '15px' }}>Statut</th>
                       <th style={{ borderTopRightRadius: '8px', padding: '15px' }}>Actions</th>
@@ -535,7 +536,7 @@ const ProduitList = () => {
                   <tbody>
                     {produits.length === 0 ? (
                       <tr>
-                        <td colSpan="8" className="text-center py-5" style={{ fontStyle: 'italic', color: '#999' }}>
+                        <td colSpan="9" className="text-center py-5" style={{ fontStyle: 'italic', color: '#999' }}>
                           <i className="bi bi-box" style={{ fontSize: '2rem', display: 'block', marginBottom: '10px' }}></i>
                           Aucun produit trouvé
                         </td>
@@ -611,6 +612,16 @@ const ProduitList = () => {
                             }}>
                               {produit.type_vente === 'poids' ? 'Au poids' : 'À l\'unité'}
                             </span>
+                          </td>
+                          <td style={{ padding: '15px', whiteSpace: 'nowrap' }}>
+                            {produit.prix_vente != null && parseFloat(produit.prix_vente) > 0 ? (
+                              <strong style={{ color: '#28a745' }}>
+                                {parseFloat(produit.prix_vente).toLocaleString('fr-FR')} F
+                                <small className="text-muted fw-normal">/{produit.type_vente === 'poids' ? 'kg' : 'u'}</small>
+                              </strong>
+                            ) : (
+                              <span className="badge bg-warning text-dark">Non défini</span>
+                            )}
                           </td>
                           <td style={{ padding: '15px' }}>
                             <span 
