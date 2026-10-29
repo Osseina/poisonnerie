@@ -203,8 +203,8 @@ const UserDetails = () => {
       
       <nav>
         <ol className="breadcrumb" style={{ fontFamily: 'Roboto, sans-serif' }}>
-          <li className="breadcrumb-item"><a href="/" style={{ color: '#006994' }}>Accueil</a></li>
-          <li className="breadcrumb-item"><a href="/users" style={{ color: '#006994' }}>Utilisateurs</a></li>
+          <li className="breadcrumb-item"><a href="#/" style={{ color: '#006994' }}>Accueil</a></li>
+          <li className="breadcrumb-item"><a href="#/users" style={{ color: '#006994' }}>Utilisateurs</a></li>
           <li className="breadcrumb-item active" style={{ color: '#333333' }}>Détails</li>
         </ol>
       </nav>

@@ -129,10 +129,10 @@ const FournisseurCreate = () => {
       <nav>
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <a href="/" style={{ color: '#006994' }}>Accueil</a>
+            <a href="#/" style={{ color: '#006994' }}>Accueil</a>
           </li>
           <li className="breadcrumb-item">
-            <a href="/fournisseurs" style={{ color: '#006994' }}>Fournisseurs</a>
+            <a href="#/fournisseurs" style={{ color: '#006994' }}>Fournisseurs</a>
           </li>
           <li className="breadcrumb-item active">
             Nouveau

@@ -236,10 +236,10 @@ const UserCreate = () => {
       <nav>
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <a href="/" style={{ color: '#006994' }}>Accueil</a>
+            <a href="#/" style={{ color: '#006994' }}>Accueil</a>
           </li>
           <li className="breadcrumb-item">
-            <a href="/users" style={{ color: '#006994' }}>Vendeurs</a>
+            <a href="#/users" style={{ color: '#006994' }}>Vendeurs</a>
           </li>
           <li className="breadcrumb-item active">
             Nouveau vendeur

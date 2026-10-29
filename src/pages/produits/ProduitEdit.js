@@ -143,8 +143,8 @@ const ProduitEdit = () => {
       
       <nav>
         <ol className="breadcrumb" style={{ fontFamily: 'Roboto, sans-serif' }}>
-          <li className="breadcrumb-item"><a href="/" style={{ color: '#006994' }}>Accueil</a></li>
-          <li className="breadcrumb-item"><a href="/produits" style={{ color: '#006994' }}>Produits</a></li>
+          <li className="breadcrumb-item"><a href="#/" style={{ color: '#006994' }}>Accueil</a></li>
+          <li className="breadcrumb-item"><a href="#/produits" style={{ color: '#006994' }}>Produits</a></li>
           <li className="breadcrumb-item active" style={{ color: '#333333' }}>Modification</li>
         </ol>
       </nav>

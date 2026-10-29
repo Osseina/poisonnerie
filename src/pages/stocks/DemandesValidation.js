@@ -109,8 +109,8 @@ const DemandesValidation = () => {
       
       <nav>
         <ol className="breadcrumb">
-          <li className="breadcrumb-item"><a href="/">Accueil</a></li>
-          <li className="breadcrumb-item"><a href="/stock">Stock</a></li>
+          <li className="breadcrumb-item"><a href="#/">Accueil</a></li>
+          <li className="breadcrumb-item"><a href="#/stocks">Stock</a></li>
           <li className="breadcrumb-item active">Demandes</li>
         </ol>
       </nav>

@@ -242,8 +242,8 @@ const VenteDetails = () => {
 
       <nav>
         <ol className="breadcrumb">
-          <li className="breadcrumb-item"><a href="/">Accueil</a></li>
-          <li className="breadcrumb-item"><a href="/ventes">Ventes</a></li>
+          <li className="breadcrumb-item"><a href="#/">Accueil</a></li>
+          <li className="breadcrumb-item"><a href="#/ventes">Ventes</a></li>
           <li className="breadcrumb-item active">Détails</li>
         </ol>
       </nav>

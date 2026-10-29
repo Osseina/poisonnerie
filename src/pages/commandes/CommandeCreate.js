@@ -324,8 +324,8 @@ const CommandeCreate = () => {
       
       <nav>
         <ol className="breadcrumb" style={{ fontFamily: 'Roboto, sans-serif' }}>
-          <li className="breadcrumb-item"><a href="/" style={{ color: '#006994' }}>Accueil</a></li>
-          <li className="breadcrumb-item"><a href="/commandes" style={{ color: '#006994' }}>Commandes</a></li>
+          <li className="breadcrumb-item"><a href="#/" style={{ color: '#006994' }}>Accueil</a></li>
+          <li className="breadcrumb-item"><a href="#/commandes" style={{ color: '#006994' }}>Commandes</a></li>
           <li className="breadcrumb-item active" style={{ color: '#333333' }}>Création</li>
         </ol>
       </nav>

@@ -279,8 +279,8 @@ const VenteCreate = () => {
       
       <nav>
         <ol className="breadcrumb" style={{ fontFamily: 'Roboto, sans-serif' }}>
-          <li className="breadcrumb-item"><a href="/" style={{ color: '#006994' }}>Accueil</a></li>
-          <li className="breadcrumb-item"><a href="/ventes" style={{ color: '#006994' }}>Ventes</a></li>
+          <li className="breadcrumb-item"><a href="#/" style={{ color: '#006994' }}>Accueil</a></li>
+          <li className="breadcrumb-item"><a href="#/ventes" style={{ color: '#006994' }}>Ventes</a></li>
           <li className="breadcrumb-item active" style={{ color: '#333333' }}>Nouvelle vente</li>
         </ol>
       </nav>

@@ -353,7 +353,8 @@ const Login = () => {
                   {/* Liens utiles */}
                   <div className="text-center">
                     <a 
-                      href="/forgot-password" 
+                      href="#/login"
+                      onClick={(e) => { e.preventDefault(); alert("Contactez votre gestionnaire : il peut réinitialiser votre mot de passe depuis la page Utilisateurs."); }}
                       style={{
                         fontFamily: 'Roboto, sans-serif',
                         color: '#006994',

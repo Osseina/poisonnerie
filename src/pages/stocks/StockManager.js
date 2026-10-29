@@ -129,7 +129,7 @@ const StockManager = () => {
       
       <nav>
         <ol className="breadcrumb" style={{ fontFamily: 'Roboto, sans-serif' }}>
-          <li className="breadcrumb-item"><a href="/" style={{ color: '#006994' }}>Accueil</a></li>
+          <li className="breadcrumb-item"><a href="#/" style={{ color: '#006994' }}>Accueil</a></li>
           <li className="breadcrumb-item active" style={{ color: '#333333' }}>Stocks</li>
         </ol>
       </nav>
