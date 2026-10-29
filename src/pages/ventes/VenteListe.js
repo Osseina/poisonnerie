@@ -152,34 +152,6 @@ const VenteListe = () => {
         marginBottom: '20px'
       }}>
         Gestion des ventes
-        {isVendeur && (
-          <span style={{
-            fontSize: '0.8rem',
-            backgroundColor: '#e6f3ff',
-            color: '#006994',
-            padding: '4px 10px',
-            borderRadius: '20px',
-            marginLeft: '15px',
-            fontWeight: 'normal'
-          }}>
-            <i className="bi bi-person me-1"></i>
-            Mode vendeur
-          </span>
-        )}
-        {isGestionnaire && (
-          <span style={{
-            fontSize: '0.8rem',
-            backgroundColor: '#FF6F00',
-            color: 'white',
-            padding: '4px 10px',
-            borderRadius: '20px',
-            marginLeft: '15px',
-            fontWeight: 'normal'
-          }}>
-            <i className="bi bi-person-badge me-1"></i>
-            Mode gestionnaire
-          </span>
-        )}
       </h1>
       
       <nav>

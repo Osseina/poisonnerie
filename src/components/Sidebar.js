@@ -1,5 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { SECTIONS_STOCK } from '../pages/stocks/StockManager';
+
+// Entrées du menu de gauche (le sous-menu Stock est construit à part)
+const ENTREES_MENU = [
+  { id: 'accueil', to: '/dashboard', label: 'Accueil', icon: 'bi-grid', roles: ['gestionnaire', 'vendeur'] },
+  { id: 'ventes', to: '/ventes', label: 'Ventes', icon: 'bi-cash-stack', roles: ['gestionnaire', 'vendeur'] },
+  { id: 'commandes', to: '/commandes', label: 'Commandes', icon: 'bi-cart', roles: ['gestionnaire', 'vendeur'] },
+  { id: 'produits', to: '/produits', label: 'Produits', icon: 'bi-box', roles: ['gestionnaire', 'vendeur'] },
+  { id: 'stock', label: 'Stock', icon: 'bi-boxes', roles: ['gestionnaire', 'vendeur'] },
+  { id: 'categories', to: '/categories', label: 'Catégories', icon: 'bi-tags', roles: ['gestionnaire'] },
+  { id: 'clients', to: '/clients', label: 'Clients', icon: 'bi-person-lines-fill', roles: ['gestionnaire', 'vendeur'] },
+  { id: 'fournisseurs', to: '/fournisseurs', label: 'Fournisseurs', icon: 'bi-truck', roles: ['gestionnaire'] },
+  { id: 'utilisateurs', to: '/users', label: 'Utilisateurs', icon: 'bi-people', roles: ['gestionnaire'] },
+];
 
 const Sidebar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
@@ -24,6 +38,14 @@ const Sidebar = () => {
 
   const location = useLocation();
 
+  // Page active (la page elle-même ou une de ses sous-pages)
+  const estActif = (to) => location.pathname === to || location.pathname.startsWith(to + '/');
+  const stockActif = location.pathname.startsWith('/stocks') || location.pathname === '/demandes-validation';
+  const [stockOuvert, setStockOuvert] = useState(stockActif);
+  useEffect(() => {
+    if (stockActif) setStockOuvert(true);
+  }, [stockActif]);
+
   // Sur mobile (< 1200px) le menu est caché par défaut et s'ouvre avec la classe
   // "toggle-sidebar" sur <body>. On le referme après chaque changement de page.
   useEffect(() => {
@@ -46,104 +68,48 @@ const Sidebar = () => {
   return (
     <aside id="sidebar" className="sidebar">
       <ul className="sidebar-nav">
-        {/* Accueil - visible pour tous */}
-        <li className="nav-item">
-          <Link className="nav-link" to="/dashboard">
-            <i className="bi bi-grid"></i>
-            <span>Accueil</span>
-          </Link>
-        </li>
-        
-        {/* 🔒 UTILISATEURS - visible seulement pour gestionnaire */}
-        {isGestionnaire && (
-          <li className="nav-item">
-            <Link className="nav-link collapsed" to="/users">
-              <i className="bi bi-people"></i>
-              <span>Utilisateurs</span>
-            </Link>
-          </li>
-        )}
-
-        {/* 🔒 FOURNISSEURS - visible seulement pour gestionnaire */}
-        {isGestionnaire && (
-          <li className="nav-item">
-            <Link className="nav-link collapsed" to="/fournisseurs">
-              <i className="bi bi-truck"></i>
-              <span>Fournisseurs</span>
-            </Link>
-          </li>
-        )}
-
-        {/* 🔒 CLIENTS - visible pour gestionnaire ET vendeur */}
-        {(isGestionnaire || isVendeur) && (
-          <li className="nav-item">
-            <Link className="nav-link collapsed" to="/clients">
-              <i className="bi bi-people"></i>
-              <span>Clients</span>
-            </Link>
-          </li>
-        )}
-
-        {/* 🔒 CATÉGORIES - visible seulement pour gestionnaire */}
-        {isGestionnaire && (
-          <li className="nav-item">
-            <Link className="nav-link collapsed" to="/categories">
-              <i className="bi bi-tags"></i>
-              <span>Catégories</span>
-            </Link>
-          </li>
-        )}
-
-        {/* 🔒 PRODUITS - visible pour gestionnaire ET vendeur */}
-        {(isGestionnaire || isVendeur) && (
-          <li className="nav-item">
-            <Link className="nav-link collapsed" to="/produits">
-              <i className="bi bi-box"></i>
-              <span>Produits</span>
-            </Link>
-          </li>
-        )}
-
-        {/* 🔒 GESTION DES STOCKS - visible pour gestionnaire ET vendeur */}
-        {(isGestionnaire || isVendeur) && (
-          <li className="nav-item">
-            <Link className="nav-link collapsed" to="/stocks">
-              <i className="bi bi-boxes"></i>
-              <span>Gestion des stocks</span>
-            </Link>
-          </li>
-        )}
-
-        {/* 🔒 COMMANDES - visible pour gestionnaire ET vendeur */}
-        {(isGestionnaire || isVendeur) && (
-          <li className="nav-item">
-            <Link className="nav-link collapsed" to="/commandes">
-              <i className="bi bi-cart"></i>
-              <span>Commandes</span>
-            </Link>
-          </li>
-        )}
-
-        {/* 🔒 VENTES - visible pour gestionnaire ET vendeur */}
-        {(isGestionnaire || isVendeur) && (
-          <li className="nav-item">
-            <Link className="nav-link collapsed" to="/ventes">
-              <i className="bi bi-cash-stack"></i>
-              <span>Ventes</span>
-            </Link>
-          </li>
-        )}
-
-        {/* 🔒 DEMANDES DE VALIDATION - visible pour gestionnaire */}
-        {isGestionnaire && (
-          <li className="nav-item">
-            <Link className="nav-link collapsed" to="/demandes-validation">
-              <i className="bi bi-check-circle"></i>
-              <span>Demandes validation</span>
-            </Link>
-          </li>
-        )}
-        
+        {ENTREES_MENU.filter((e) => e.roles.includes(user.profile)).map((e) => {
+          // Sous-menu Stock
+          if (e.id === 'stock') {
+            const sousEntrees = [
+              ...SECTIONS_STOCK.filter((s) => s.roles.includes(user.profile))
+                .map((s) => ({ to: `/stocks/${s.id}`, label: s.label, icon: s.icon })),
+              ...(isGestionnaire ? [{ to: '/demandes-validation', label: 'Demandes de validation', icon: 'bi-check2-square' }] : []),
+            ];
+            return (
+              <li className="nav-item" key={e.id}>
+                <button
+                  type="button"
+                  className={`nav-link w-100 border-0 ${stockActif ? '' : 'collapsed'}`}
+                  aria-expanded={stockOuvert}
+                  onClick={() => setStockOuvert((o) => !o)}
+                >
+                  <i className={`bi ${e.icon}`}></i>
+                  <span>{e.label}</span>
+                  <i className={`bi bi-chevron-down ms-auto sidebar-chevron ${stockOuvert ? 'ouvert' : ''}`}></i>
+                </button>
+                <ul className={`nav-content collapse ${stockOuvert ? 'show' : ''}`}>
+                  {sousEntrees.map((s) => (
+                    <li key={s.to}>
+                      <Link to={s.to} className={estActif(s.to) ? 'active' : ''}>
+                        <i className={`bi ${s.icon}`}></i>
+                        <span>{s.label}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            );
+          }
+          return (
+            <li className="nav-item" key={e.id}>
+              <Link className={`nav-link ${estActif(e.to) ? '' : 'collapsed'}`} to={e.to}>
+                <i className={`bi ${e.icon}`}></i>
+                <span>{e.label}</span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
 
       {/* Petit indicateur de rôle (optionnel) */}

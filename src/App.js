@@ -86,7 +86,8 @@ function App() {
           <Route path="/produits/edit/:id" element={<ProduitEdit />} />
 
           {/* Routes stocks */}
-          <Route path="/stocks" element={<StockManager />} />
+          <Route path="/stocks" element={<Navigate to="/stocks/niveaux" replace />} />
+          <Route path="/stocks/:section" element={<StockManager />} />
 
           {/* Routes commandes */}
           <Route path="/commandes" element={<CommandeList />} />

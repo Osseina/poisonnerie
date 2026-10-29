@@ -435,3 +435,43 @@
     min-height: 44px;
   }
 }
+
+/* Menu de gauche : sous-menu Stock */
+.sidebar-nav button.nav-link {
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-nav .nav-link .sidebar-chevron {
+  transition: transform 0.2s;
+  transform: none !important;
+}
+
+.sidebar-nav .nav-link .sidebar-chevron.ouvert {
+  transform: rotate(180deg) !important;
+}
+
+.sidebar-nav .nav-content a.active {
+  color: #006994;
+  font-weight: 600;
+}
+
+.sidebar-nav .nav-content a i {
+  font-size: 1rem !important;
+  width: auto !important;
+  height: auto !important;
+  line-height: 1;
+  border-radius: 0 !important;
+  background: none !important;
+  margin-right: 10px;
+  color: #899bbd;
+}
+
+.sidebar-nav .nav-content a.active i,
+.sidebar-nav .nav-content a:hover i {
+  color: #006994;
+}
+
+.sidebar-nav .nav-content a {
+  padding: 9px 0 9px 36px;
+}
