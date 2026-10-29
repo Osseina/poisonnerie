@@ -646,6 +646,31 @@ const ProduitDetails = () => {
                     color: '#006994',
                     fontWeight: 'bold'
                   }}>
+                    <i className="bi bi-bag me-2"></i>
+                    Prix d'achat
+                  </div>
+                  <div className="col-lg-9 col-md-8" style={{ fontFamily: 'Roboto, sans-serif', color: '#333333' }}>
+                    {produit.prix_achat != null && parseFloat(produit.prix_achat) > 0 ? (
+                      <>
+                        <strong>{parseFloat(produit.prix_achat).toLocaleString('fr-FR')} FCFA / {produit.type_vente === 'poids' ? 'kg' : 'unité'}</strong>
+                        {produit.prix_vente != null && parseFloat(produit.prix_vente) > 0 && (
+                          <span className="ms-2 text-muted small">
+                            (marge : {(parseFloat(produit.prix_vente) - parseFloat(produit.prix_achat)).toLocaleString('fr-FR')} FCFA)
+                          </span>
+                        )}
+                      </>
+                    ) : (
+                      <span className="text-muted">Non défini</span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="row mb-3">
+                  <div className="col-lg-3 col-md-4 label" style={{
+                    fontFamily: 'Montserrat, sans-serif',
+                    color: '#006994',
+                    fontWeight: 'bold'
+                  }}>
                     <i className="bi bi-cash-coin me-2"></i>
                     Prix de vente
                   </div>

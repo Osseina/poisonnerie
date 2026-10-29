@@ -16,7 +16,8 @@ const ProduitCreate = () => {
   
   const [formData, setFormData] = useState({
     nom_produit: '',
-    // Prix de vente actuel (facultatif)
+    // Prix actuels (facultatifs)
+    prix_achat: '',
     prix_vente: '',
     // Pour produits au poids
     stock_min_kg: '5',
@@ -81,6 +82,7 @@ const ProduitCreate = () => {
         categorie_id: formData.categorie_id || null,
         // Le stock démarre toujours à 0 (il évolue par les entrées de stock)
         prix_vente: formData.prix_vente !== '' ? parseFloat(formData.prix_vente) : null,
+        prix_achat: formData.prix_achat !== '' ? parseFloat(formData.prix_achat) : null,
       };
 
       if (typeVente === 'poids') {
@@ -272,32 +274,45 @@ const ProduitCreate = () => {
                   <div className="mb-4">
                     <h6 className="mb-3" style={{ color: '#006994', fontWeight: 'bold' }}>
                       <i className="bi bi-bar-chart me-2"></i>
-                      Prix de vente et seuils d'alerte
+                      Prix et seuils d'alerte
                     </h6>
+                    <div className="row">
+                      <div className="col-md-6 mb-2">
+                        <label className="form-label fw-bold" style={{ color: '#006994', fontSize: '0.9rem' }}>
+                          Prix d'achat (FCFA / {typeVente === 'poids' ? 'kg' : 'unité'})
+                        </label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          name="prix_achat"
+                          value={formData.prix_achat}
+                          onChange={handleChange}
+                          min="0"
+                          step="any"
+                          style={{ borderRadius: '8px', border: '1px solid #ddd', padding: '10px' }}
+                        />
+                      </div>
+                      <div className="col-md-6 mb-2">
+                        <label className="form-label fw-bold" style={{ color: '#006994', fontSize: '0.9rem' }}>
+                          Prix de vente (FCFA / {typeVente === 'poids' ? 'kg' : 'unité'})
+                        </label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          name="prix_vente"
+                          value={formData.prix_vente}
+                          onChange={handleChange}
+                          min="0"
+                          step="any"
+                          style={{ borderRadius: '8px', border: '1px solid #ddd', padding: '10px' }}
+                        />
+                      </div>
+                    </div>
                     
                     {typeVente === 'poids' ? (
                       // Produits au poids
                       <div className="row">
-                        <div className="col-md-4 mb-2">
-                          <label className="form-label fw-bold" style={{ color: '#006994', fontSize: '0.9rem' }}>
-                            Prix de vente (FCFA / kg)
-                          </label>
-                          <input
-                            type="number"
-                            className="form-control"
-                            name="prix_vente"
-                            value={formData.prix_vente}
-                            onChange={handleChange}
-                            min="0"
-                            step="1"
-                            style={{
-                              borderRadius: '8px',
-                              border: '1px solid #ddd',
-                              padding: '10px'
-                            }}
-                          />
-                        </div>
-                        <div className="col-md-4 mb-2">
+                        <div className="col-md-6 mb-2">
                           <label className="form-label fw-bold" style={{ color: '#006994', fontSize: '0.9rem' }}>
                             Stock minimum (kg)
                           </label>
@@ -315,7 +330,7 @@ const ProduitCreate = () => {
                             }}
                           />
                         </div>
-                        <div className="col-md-4 mb-2">
+                        <div className="col-md-6 mb-2">
                           <label className="form-label fw-bold" style={{ color: '#006994', fontSize: '0.9rem' }}>
                             Stock maximum (kg)
                           </label>
@@ -337,26 +352,7 @@ const ProduitCreate = () => {
                     ) : (
                       // Produits à l'unité
                       <div className="row">
-                        <div className="col-md-4 mb-2">
-                          <label className="form-label fw-bold" style={{ color: '#006994', fontSize: '0.9rem' }}>
-                            Prix de vente (FCFA / unité)
-                          </label>
-                          <input
-                            type="number"
-                            className="form-control"
-                            name="prix_vente"
-                            value={formData.prix_vente}
-                            onChange={handleChange}
-                            min="0"
-                            step="1"
-                            style={{
-                              borderRadius: '8px',
-                              border: '1px solid #ddd',
-                              padding: '10px'
-                            }}
-                          />
-                        </div>
-                        <div className="col-md-4 mb-2">
+                        <div className="col-md-6 mb-2">
                           <label className="form-label fw-bold" style={{ color: '#006994', fontSize: '0.9rem' }}>
                             Stock minimum
                           </label>
@@ -374,7 +370,7 @@ const ProduitCreate = () => {
                             }}
                           />
                         </div>
-                        <div className="col-md-4 mb-2">
+                        <div className="col-md-6 mb-2">
                           <label className="form-label fw-bold" style={{ color: '#006994', fontSize: '0.9rem' }}>
                             Stock maximum
                           </label>
@@ -457,7 +453,7 @@ const ProduitCreate = () => {
                     padding: '10px 15px'
                   }}>
                     <i className="bi bi-info-circle me-2" style={{ color: '#006994' }}></i>
-                    Le code produit sera généré automatiquement. Le stock démarre à 0 : ajoutez la marchandise avec une entrée de stock (où se saisit le prix d'achat).
+                    Le code produit sera généré automatiquement. Le stock démarre à 0 : ajoutez la marchandise avec une entrée de stock. Le prix d'achat sera mis à jour à chaque entrée.
                   </div>
 
                   {/* Boutons d'action */}

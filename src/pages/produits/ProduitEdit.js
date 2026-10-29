@@ -15,6 +15,7 @@ const ProduitEdit = () => {
   const [formData, setFormData] = useState({
     nom_produit: '',
     prix_vente: '',
+    prix_achat: '',
     // Seuils d'alerte
     stock_min_kg: '5',
     stock_max_kg: '100',
@@ -52,6 +53,7 @@ const ProduitEdit = () => {
       setFormData({
         nom_produit: produit.nom_produit || '',
         prix_vente: produit.prix_vente != null ? String(parseFloat(produit.prix_vente)) : '',
+        prix_achat: produit.prix_achat != null ? String(parseFloat(produit.prix_achat)) : '',
         stock_min_kg: produit.stock_min_kg || '5',
         stock_max_kg: produit.stock_max_kg || '100',
         fournisseur_id: produit.fournisseur_id || '',
@@ -94,6 +96,7 @@ const ProduitEdit = () => {
       const dataToSend = {
         nom_produit: formData.nom_produit,
         prix_vente: formData.prix_vente !== '' ? parseFloat(formData.prix_vente) : null,
+        prix_achat: formData.prix_achat !== '' ? parseFloat(formData.prix_achat) : null,
         fournisseur_id: formData.fournisseur_id ? parseInt(formData.fournisseur_id) : null,
         categorie_id: formData.categorie_id ? parseInt(formData.categorie_id) : null,
         est_actif: formData.est_actif ? 1 : 0,
@@ -287,30 +290,46 @@ const ProduitEdit = () => {
                     </div>
                   </div>
 
-                  {/* Prix de vente actuel */}
-                  <div className="mb-4">
-                    <label className="form-label fw-bold" style={{ color: '#006994' }}>
-                      <i className="bi bi-cash-coin me-2"></i>
-                      Prix de vente ({typeVente === 'poids' ? 'FCFA / kg' : 'FCFA / unité'})
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      name="prix_vente"
-                      value={formData.prix_vente}
-                      onChange={handleChange}
-                      min="0"
-                      step="1"
-                      style={{
-                        borderRadius: '8px',
-                        border: '1px solid #ddd',
-                        padding: '10px'
-                      }}
-                    />
-                    <small className="text-muted">
-                      <i className="bi bi-info-circle me-1"></i>
-                      Sans prix, le produit n'apparaît pas à la caisse. Le prix d'achat se saisit dans les entrées de stock.
-                    </small>
+                  {/* Prix d'achat et de vente */}
+                  <div className="row mb-4">
+                    <div className="col-md-6 mb-2">
+                      <label className="form-label fw-bold" style={{ color: '#006994' }}>
+                        <i className="bi bi-bag me-2"></i>
+                        Prix d'achat ({typeVente === 'poids' ? 'FCFA / kg' : 'FCFA / unité'})
+                      </label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="prix_achat"
+                        value={formData.prix_achat}
+                        onChange={handleChange}
+                        min="0"
+                        step="any"
+                        style={{ borderRadius: '8px', border: '1px solid #ddd', padding: '10px' }}
+                      />
+                    </div>
+                    <div className="col-md-6 mb-2">
+                      <label className="form-label fw-bold" style={{ color: '#006994' }}>
+                        <i className="bi bi-cash-coin me-2"></i>
+                        Prix de vente ({typeVente === 'poids' ? 'FCFA / kg' : 'FCFA / unité'})
+                      </label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="prix_vente"
+                        value={formData.prix_vente}
+                        onChange={handleChange}
+                        min="0"
+                        step="any"
+                        style={{ borderRadius: '8px', border: '1px solid #ddd', padding: '10px' }}
+                      />
+                    </div>
+                    <div className="col-12">
+                      <small className="text-muted">
+                        <i className="bi bi-info-circle me-1"></i>
+                        Sans prix de vente, le produit n'apparaît pas à la caisse. Le prix d'achat est aussi mis à jour à chaque entrée de stock.
+                      </small>
+                    </div>
                   </div>
 
                   {/* Seuils d'alerte */}

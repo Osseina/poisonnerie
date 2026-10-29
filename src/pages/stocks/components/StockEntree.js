@@ -55,6 +55,10 @@ const StockEntree = () => {
         ...prev,
         prix_vente: produit && produit.prix_vente != null && parseFloat(produit.prix_vente) > 0
           ? String(parseFloat(produit.prix_vente))
+          : '',
+        // Prix d'achat unitaire prérempli avec le dernier prix connu du produit
+        prix_achat_unitaire: produit && produit.prix_achat != null && parseFloat(produit.prix_achat) > 0
+          ? String(parseFloat(produit.prix_achat))
           : ''
       }));
       setCalculs(prev => ({

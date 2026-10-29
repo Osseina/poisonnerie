@@ -64,6 +64,8 @@ export const createProduit = async (produitData) => {
       categorie_id: produitData.categorie_id ? parseInt(produitData.categorie_id) : null,
       prix_vente: produitData.prix_vente !== undefined && produitData.prix_vente !== null && produitData.prix_vente !== ''
         ? parseFloat(produitData.prix_vente) : null,
+      prix_achat: produitData.prix_achat !== undefined && produitData.prix_achat !== null && produitData.prix_achat !== ''
+        ? parseFloat(produitData.prix_achat) : null,
       stock_min_kg: parseInt(produitData.stock_min_kg) || 5,
       stock_max_kg: parseInt(produitData.stock_max_kg) || 100,
     };
@@ -98,10 +100,11 @@ export const updateProduit = async (id, produitData) => {
     if (produitData.est_actif !== undefined) {
       dataToSend.est_actif = produitData.est_actif ? 1 : 0;
     }
-    if (produitData.prix_vente !== undefined) {
-      dataToSend.prix_vente = produitData.prix_vente === null || produitData.prix_vente === ''
-        ? null : parseFloat(produitData.prix_vente);
-    }
+    ['prix_vente', 'prix_achat'].forEach((c) => {
+      if (produitData[c] !== undefined) {
+        dataToSend[c] = produitData[c] === null || produitData[c] === '' ? null : parseFloat(produitData[c]);
+      }
+    });
 
     const response = await fetch(`${API_URL}/update.php?id=${id}`, {
       method: 'PUT',

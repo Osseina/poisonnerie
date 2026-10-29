@@ -622,6 +622,9 @@ const ProduitList = () => {
                             ) : (
                               <span className="badge bg-warning text-dark">Non défini</span>
                             )}
+                            {produit.prix_achat != null && parseFloat(produit.prix_achat) > 0 && (
+                              <small className="d-block text-muted">achat {parseFloat(produit.prix_achat).toLocaleString('fr-FR')} F</small>
+                            )}
                           </td>
                           <td style={{ padding: '15px' }}>
                             <span 
