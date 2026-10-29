@@ -290,7 +290,6 @@ const ProduitCreate = () => {
                             onChange={handleChange}
                             min="0"
                             step="1"
-                            placeholder="Ex : 2500"
                             style={{
                               borderRadius: '8px',
                               border: '1px solid #ddd',
@@ -350,7 +349,6 @@ const ProduitCreate = () => {
                             onChange={handleChange}
                             min="0"
                             step="1"
-                            placeholder="Ex : 750"
                             style={{
                               borderRadius: '8px',
                               border: '1px solid #ddd',

@@ -289,13 +289,13 @@ const StockHistorique = () => {
               </select>
             </div>
             <div className="col-md-2">
+              <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Du</label>
               <input
                 type="date"
                 className="form-control"
                 name="date_debut"
                 value={filters.date_debut}
                 onChange={handleFilterChange}
-                placeholder="Date début"
                 style={{
                   borderRadius: '8px',
                   border: '1px solid #e0e0e0',
@@ -305,13 +305,13 @@ const StockHistorique = () => {
               />
             </div>
             <div className="col-md-2">
+              <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Au</label>
               <input
                 type="date"
                 className="form-control"
                 name="date_fin"
                 value={filters.date_fin}
                 onChange={handleFilterChange}
-                placeholder="Date fin"
                 style={{
                   borderRadius: '8px',
                   border: '1px solid #e0e0e0',

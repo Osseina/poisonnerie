@@ -191,23 +191,23 @@ const StockSortieListe = () => {
           
           <div className="row g-2">
             <div className="col-md-2">
+              <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Du</label>
               <input
                 type="date"
                 className="form-control"
                 name="date_debut"
                 value={filters.date_debut}
                 onChange={handleFilterChange}
-                placeholder="Date début"
               />
             </div>
             <div className="col-md-2">
+              <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Au</label>
               <input
                 type="date"
                 className="form-control"
                 name="date_fin"
                 value={filters.date_fin}
                 onChange={handleFilterChange}
-                placeholder="Date fin"
               />
             </div>
             <div className="col-md-3">
@@ -312,7 +312,7 @@ const StockSortieListe = () => {
                                 name="motif"
                                 value={editForm.motif}
                                 onChange={handleEditChange}
-                                placeholder="Motif"
+                                aria-label="Motif"
                                 style={{ width: '150px' }}
                               />
                             </td>

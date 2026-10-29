@@ -326,3 +326,112 @@
     margin: 0.5rem;
   }
 }
+
+/* Menu des notifications : ne dépasse jamais de l'écran */
+@media (max-width: 575.98px) {
+  .header-nav .notifications {
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    position: fixed !important;
+    left: 8px !important;
+    right: 8px !important;
+    top: 56px !important;
+    transform: none !important;
+  }
+}
+
+/* =========================================================================
+   Ergonomie générale (ordinateur et mobile)
+   ========================================================================= */
+
+/* Barre de validation de vente fixe en bas (mobile et tablette) */
+.vente-barre-mobile {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 990;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1px solid #e3e8ef;
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.vente-barre-mobile .vente-barre-total {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.vente-barre-mobile .vente-barre-total small {
+  color: #6c757d;
+}
+
+.vente-barre-mobile .vente-barre-total strong {
+  color: #006994;
+  font-size: 1.2rem;
+}
+
+.vente-barre-mobile .btn {
+  background: #28a745;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 10px 22px;
+  min-height: 46px;
+}
+
+.vente-barre-mobile .btn:disabled {
+  opacity: 0.55;
+  color: #fff;
+}
+
+@media (max-width: 991.98px) {
+  body:has(.vente-barre-mobile) #main {
+    padding-bottom: 96px !important;
+  }
+}
+
+/* Ordinateur : tableaux plus compacts, rien de coupé à droite */
+@media (min-width: 768px) {
+  .main .table > :not(caption) > * > th,
+  .main .table > :not(caption) > * > td {
+    padding: 0.6rem 0.55rem !important;
+    vertical-align: middle;
+  }
+
+  .main .table code {
+    white-space: nowrap;
+    font-size: 0.8rem !important;
+    padding: 3px 7px !important;
+  }
+
+  .main .table td .badge {
+    white-space: nowrap;
+  }
+}
+
+/* Montants des cartes de statistiques : taille adaptée à la largeur,
+   ne chevauchent plus l'icône */
+@media (min-width: 768px) {
+  .main .card-body .d-flex.justify-content-between > div:first-child {
+    min-width: 0;
+  }
+
+  .main .card-body h3 {
+    font-size: clamp(1.1rem, 1.5vw, 1.6rem);
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Champs plus confortables au toucher */
+@media (max-width: 767.98px) {
+  .main .form-control,
+  .main .form-select {
+    min-height: 44px;
+  }
+}

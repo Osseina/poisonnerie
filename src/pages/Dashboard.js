@@ -719,7 +719,7 @@ const Dashboard = () => {
       {/* Graphiques */}
       <div className="row mb-4">
         {/* Ventes mensuelles (visible pour tous) */}
-        <div className={`col-xl-${isGestionnaire ? '8' : '12'} mb-3`}>
+        <div className={`col-xl-${isGestionnaire && beneficesData && stats.topProduits.length > 0 ? '8' : '12'} mb-3`}>
           <div className="card h-100" style={{
             borderRadius: '12px',
             boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
@@ -743,10 +743,12 @@ const Dashboard = () => {
                 Évolution des ventes
                 {isVendeur && <span className="ms-2 text-muted small">(mes ventes)</span>}
               </h5>
+              <div style={{ position: 'relative', height: '300px' }}>
               <Bar 
                 data={getVentesMensuellesData()} 
                 options={{
                   responsive: true,
+                  maintainAspectRatio: false,
                   plugins: {
                     tooltip: {
                       callbacks: {
@@ -756,6 +758,7 @@ const Dashboard = () => {
                   }
                 }} 
               />
+              </div>
             </div>
           </div>
         </div>

@@ -265,10 +265,6 @@ const StockEntree = () => {
     return selectedProduit?.type_vente === 'poids' ? 'kg' : 'unité';
   };
 
-  const getPlaceholder = () => {
-    return selectedProduit?.type_vente === 'poids' ? 'Ex: 2.5' : 'Ex: 10';
-  };
-
   if (loadingProduits || loadingFournisseurs) {
     return (
       <div className="text-center py-5">
@@ -441,7 +437,6 @@ const StockEntree = () => {
                 onChange={handleChange}
                 min="0"
                 step="0.01"
-                placeholder="Prix affiché à la caisse"
                 style={{
                   borderRadius: '8px',
                   border: '1px solid #ddd',
@@ -496,7 +491,6 @@ const StockEntree = () => {
                       onChange={handleChange}
                       min="0"
                       step={getQuantiteStep()}
-                      placeholder={getPlaceholder()}
                       required
                     />
                     <small className="text-muted d-block mt-1">
@@ -520,7 +514,6 @@ const StockEntree = () => {
                       onChange={handleChange}
                       min="0"
                       step="0.01"
-                      placeholder="Prix d'achat par unité"
                       required
                     />
                   </div>
@@ -561,7 +554,6 @@ const StockEntree = () => {
                       name="numero_livraison"
                       value={formData.numero_livraison}
                       onChange={handleChange}
-                      placeholder="N° bon de livraison"
                     />
                   </div>
                 </div>
@@ -584,7 +576,6 @@ const StockEntree = () => {
                           onChange={handleChange}
                           min="0"
                           step="0.01"
-                          placeholder="Ex: 5"
                           required
                         />
                       </div>
@@ -614,7 +605,6 @@ const StockEntree = () => {
                           onChange={handleChange}
                           min="0"
                           step="any"
-                          placeholder="Ex: 50000"
                           required
                         />
                       </div>
@@ -633,7 +623,6 @@ const StockEntree = () => {
                           onChange={handleChange}
                           min="0"
                           step={selectedProduit.type_vente === 'poids' ? '0.001' : '1'}
-                          placeholder="Ex: 10"
                           required
                         />
                         <small className="text-muted">

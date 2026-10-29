@@ -283,13 +283,6 @@ const StockSortie = () => {
     return selectedProduit?.type_vente === 'poids' ? '0.001' : '1';
   };
 
-  const getQuantitePlaceholder = () => {
-    if (!selectedProduit) return 'Sélectionnez un produit';
-    return selectedProduit.type_vente === 'poids' 
-      ? `Max: ${stockDispo} kg` 
-      : `Max: ${stockDispo} unités`;
-  };
-
   const getUnite = () => {
     return selectedProduit?.type_vente === 'poids' ? 'kg' : 'unité(s)';
   };
@@ -489,7 +482,6 @@ const StockSortie = () => {
                   min="0"
                   max={stockDispo || 0}
                   step={getQuantiteStep()}
-                  placeholder={getQuantitePlaceholder()}
                   required
                   disabled={!selectedProduit || stockDispo === 0}
                   style={{
@@ -545,7 +537,6 @@ const StockSortie = () => {
                   value={formData.motif}
                   onChange={handleChange}
                   rows="2"
-                  placeholder="Expliquez la raison de cette opération..."
                   required
                   style={{
                     borderRadius: '8px',

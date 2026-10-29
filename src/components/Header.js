@@ -223,13 +223,6 @@ const Header = () => {
         ></i>
       </div>
 
-      <div className="search-bar">
-        <form className="search-form d-flex align-items-center" method="POST" action="#">
-          <input type="text" name="query" placeholder="Rechercher un produit..." title="Rechercher" />
-          <button type="submit" title="Rechercher"><i className="bi bi-search"></i></button>
-        </form>
-      </div>
-
       <nav className="header-nav ms-auto">
         <ul className="d-flex align-items-center">
           {/* Notifications - Visible seulement pour gestionnaire */}

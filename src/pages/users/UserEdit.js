@@ -375,7 +375,6 @@ const UserEdit = () => {
                         name="telephone"
                         value={formData.telephone}
                         onChange={handleChange}
-                        placeholder="90 12 34 56"
                         style={{
                           borderRadius: '0 8px 8px 0',
                           border: '1px solid #ddd',
@@ -413,7 +412,6 @@ const UserEdit = () => {
                             name="mot_de_passe"
                             value={formData.mot_de_passe}
                             onChange={handleChange}
-                            placeholder="••••••••"
                             style={{
                               borderRadius: '8px',
                               border: '1px solid #ddd',
@@ -438,7 +436,6 @@ const UserEdit = () => {
                             name="confirm_mot_de_passe"
                             value={formData.confirm_mot_de_passe}
                             onChange={handleChange}
-                            placeholder="••••••••"
                             style={{
                               borderRadius: '8px',
                               border: '1px solid #ddd',

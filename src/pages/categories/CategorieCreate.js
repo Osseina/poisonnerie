@@ -143,7 +143,6 @@ const CategorieCreate = () => {
                       name="nom_categorie"
                       value={formData.nom_categorie}
                       onChange={handleChange}
-                      placeholder="Ex: Poissons frais, Fruits de mer, Poissons fumés..."
                       required
                       style={{
                         borderRadius: '8px',
@@ -169,7 +168,6 @@ const CategorieCreate = () => {
                       rows="4"
                       value={formData.description}
                       onChange={handleChange}
-                      placeholder="Description de la catégorie (optionnelle)..."
                       style={{
                         borderRadius: '8px',
                         border: '1px solid #ddd',

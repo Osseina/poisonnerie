@@ -263,10 +263,10 @@ const UserList = () => {
           
           <div className="row g-2">
             <div className="col-md-8">
+              <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Rechercher un vendeur</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Rechercher par nom, prénom ou téléphone..."
                 name="search"
                 value={filters.search}
                 onChange={handleFilterChange}

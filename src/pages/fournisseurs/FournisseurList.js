@@ -282,10 +282,10 @@ const FournisseurList = () => {
           
           <div className="row g-2">
             <div className="col-md-5">
+              <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Rechercher un fournisseur</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Rechercher (nom société, contact, email...)"
                 name="search"
                 value={filters.search}
                 onChange={handleFilterChange}

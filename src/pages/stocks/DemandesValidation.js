@@ -283,7 +283,6 @@ const DemandesValidation = () => {
                   autoFocus
                   value={motifRejet}
                   onChange={(e) => setMotifRejet(e.target.value)}
-                  placeholder="Expliquez pourquoi la demande est rejetée"
                 ></textarea>
               </div>
             )}

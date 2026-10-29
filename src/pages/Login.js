@@ -274,7 +274,6 @@ const Login = () => {
                           padding: '10px 15px',
                           borderRadius: '0 8px 8px 0'
                         }}
-                        placeholder="90 12 34 56"
                         autoComplete="tel"
                       />
                     </div>
@@ -317,7 +316,6 @@ const Login = () => {
                           borderRight: 'none',
                           padding: '10px 15px'
                         }}
-                        placeholder="••••••••"
                         autoComplete="current-password"
                       />
                       <span 

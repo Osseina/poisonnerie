@@ -312,10 +312,10 @@ const CommandeList = () => {
           
           <div className="row g-2">
             <div className="col-md-4">
+              <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Rechercher une commande</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Rechercher (n° commande, client)..."
                 name="search"
                 value={filters.search}
                 onChange={handleFilterChange}
@@ -356,13 +356,13 @@ const CommandeList = () => {
               </select>
             </div>
             <div className="col-md-3">
+              <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Date</label>
               <input
                 type="date"
                 className="form-control"
                 name="date"
                 value={filters.date}
                 onChange={handleFilterChange}
-                placeholder="Date"
                 style={{
                   borderRadius: '8px',
                   border: '1px solid #e0e0e0',

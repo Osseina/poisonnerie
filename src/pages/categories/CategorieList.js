@@ -293,10 +293,10 @@ const CategorieList = () => {
           
           <div className="row g-2">
             <div className="col-md-8">
+              <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Rechercher une catégorie</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Rechercher une catégorie..."
                 name="search"
                 value={filters.search}
                 onChange={handleFilterChange}

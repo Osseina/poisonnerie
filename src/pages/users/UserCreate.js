@@ -312,7 +312,6 @@ const UserCreate = () => {
                         name="nom"
                         value={formData.nom}
                         onChange={handleChange}
-                        placeholder="Ex: ISSOUFOU"
                         style={{
                           borderRadius: '8px',
                           border: '1px solid #dee2e6',
@@ -335,7 +334,6 @@ const UserCreate = () => {
                         name="prenom"
                         value={formData.prenom}
                         onChange={handleChange}
-                        placeholder="Ex: Ibrahim"
                         style={{
                           borderRadius: '8px',
                           border: '1px solid #dee2e6',
@@ -369,7 +367,6 @@ const UserCreate = () => {
                         name="telephone"
                         value={formData.telephone}
                         onChange={handleChange}
-                        placeholder="90 12 34 56"
                         style={{
                           borderRadius: '0 8px 8px 0',
                           border: '1px solid #dee2e6',
@@ -419,7 +416,6 @@ const UserCreate = () => {
                         name="mot_de_passe"
                         value={formData.mot_de_passe}
                         onChange={handleChange}
-                        placeholder="Minimum 6 caractères"
                         style={{
                           borderRadius: '8px',
                           border: '1px solid #dee2e6',
@@ -442,7 +438,6 @@ const UserCreate = () => {
                         name="confirm_mot_de_passe"
                         value={formData.confirm_mot_de_passe}
                         onChange={handleChange}
-                        placeholder="Confirmer le mot de passe"
                         style={{
                           borderRadius: '8px',
                           border: '1px solid #dee2e6',

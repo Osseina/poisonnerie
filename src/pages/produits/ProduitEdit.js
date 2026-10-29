@@ -301,7 +301,6 @@ const ProduitEdit = () => {
                       onChange={handleChange}
                       min="0"
                       step="1"
-                      placeholder="Prix affiché à la caisse"
                       style={{
                         borderRadius: '8px',
                         border: '1px solid #ddd',

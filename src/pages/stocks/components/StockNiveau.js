@@ -235,10 +235,10 @@ const StockNiveau = () => {
           
           <div className="row g-3">
             <div className="col-md-6">
+              <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Rechercher un produit</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Rechercher un produit..."
                 name="search"
                 value={filters.search}
                 onChange={handleFilterChange}

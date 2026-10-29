@@ -235,7 +235,6 @@ const CategorieEdit = () => {
                       rows="4"
                       value={formData.description}
                       onChange={handleChange}
-                      placeholder="Description de la catégorie (optionnelle)..."
                       style={{
                         borderRadius: '8px',
                         border: '1px solid #ddd',

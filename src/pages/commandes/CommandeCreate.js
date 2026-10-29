@@ -588,8 +588,9 @@ const CommandeCreate = () => {
                   <h5 className="mt-4" style={{ fontFamily: 'Montserrat, sans-serif', color: '#006994' }}>Articles</h5>
                   
                   {/* Ajout article */}
-                  <div className="row mb-3 bg-light p-3 rounded" style={{ backgroundColor: '#f8f9fa' }}>
+                  <div className="row g-2 align-items-end mx-0 mb-3 bg-light p-3 rounded" style={{ backgroundColor: '#f8f9fa' }}>
                     <div className="col-md-5">
+                      <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Produit</label>
                       <select
                         className="form-select"
                         name="produit_id"
@@ -617,6 +618,7 @@ const CommandeCreate = () => {
                       )}
                     </div>
                     <div className="col-md-2">
+                      <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>{articleCourant.produit_id && articleCourant.type_vente === 'poids' ? 'Poids (kg)' : 'Quantité'}</label>
                       <input
                         type="number"
                         className="form-control"
@@ -625,7 +627,6 @@ const CommandeCreate = () => {
                         onChange={handleArticleChange}
                         min="0.001"
                         step={articleCourant.type_vente === 'poids' ? '0.001' : '1'}
-                        placeholder={articleCourant.type_vente === 'poids' ? 'Poids (kg)' : 'Qté'}
                         disabled={!articleCourant.produit_id}
                         style={{
                           borderRadius: '8px',
@@ -636,12 +637,12 @@ const CommandeCreate = () => {
                       />
                     </div>
                     <div className="col-md-3">
+                      <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Prix unitaire (FCFA)</label>
                       <input
                         type="number"
                         className="form-control"
                         value={articleCourant.prix_unitaire}
                         disabled
-                        placeholder="Prix"
                         style={{
                           borderRadius: '8px',
                           border: '1px solid #ddd',
@@ -657,7 +658,7 @@ const CommandeCreate = () => {
                     <div className="col-md-2">
                       <button
                         type="button"
-                        className="btn btn-success w-100"
+                        className="btn btn-success w-100 text-nowrap"
                         onClick={ajouterArticle}
                         disabled={!articleCourant.produit_id || articleCourant.stock_dispo === 0 || articleCourant.prix_unitaire <= 0}
                         style={{
@@ -666,7 +667,7 @@ const CommandeCreate = () => {
                           fontWeight: 'bold'
                         }}
                       >
-                        <i className="bi bi-plus-lg"></i>
+                        <i className="bi bi-plus-lg me-1"></i>Ajouter
                       </button>
                     </div>
                   </div>
@@ -777,7 +778,6 @@ const CommandeCreate = () => {
                         name="adresse_livraison"
                         value={formData.adresse_livraison}
                         onChange={handleClientChange}
-                        placeholder="Adresse complète"
                         style={{
                           borderRadius: '8px',
                           border: '1px solid #ddd',
@@ -801,7 +801,6 @@ const CommandeCreate = () => {
                         name="ville_livraison"
                         value={formData.ville_livraison}
                         onChange={handleClientChange}
-                        placeholder="Ville"
                         style={{
                           borderRadius: '8px',
                           border: '1px solid #ddd',

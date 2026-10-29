@@ -290,10 +290,10 @@ const StockInventaire = () => {
                 color: '#999',
                 zIndex: 10
               }}></i>
+              <label className="form-label small fw-semibold mb-1" style={{ color: '#495057' }}>Filtrer les produits</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Filtrer les produits..."
                 value={filtre}
                 onChange={(e) => setFiltre(e.target.value)}
                 style={{
@@ -443,7 +443,6 @@ const StockInventaire = () => {
                 rows="2"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                placeholder="Observations sur l'inventaire..."
                 style={{
                   borderRadius: '8px',
                   border: '1px solid #ddd',
