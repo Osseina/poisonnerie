@@ -169,16 +169,144 @@
     font-size: 0.85rem !important;
   }
 
-  /* ---------- Tableaux : défilement horizontal au lieu d'écraser ---------- */
+  /* ---------- Tableaux en fiches (cellules étiquetées par responsiveTables.js) ---------- */
   .main .table-responsive {
-    -webkit-overflow-scrolling: touch;
+    overflow-x: visible;
   }
 
-  .main .table-responsive .table th,
-  .main .table-responsive .table td {
-    white-space: nowrap;
-    font-size: 0.82rem;
-    padding: 0.5rem 0.5rem !important;
+  .main table.table-fiches,
+  .main table.table-fiches tbody,
+  .main table.table-fiches tr,
+  .main table.table-fiches td {
+    display: block;
+    width: 100%;
+  }
+
+  .main table.table-fiches {
+    min-width: 0 !important;
+    border: 0;
+  }
+
+  .main table.table-fiches thead {
+    display: none;
+  }
+
+  .main table.table-fiches tbody tr {
+    background: #fff;
+    border: 1px solid #e3e8ef;
+    border-left: 4px solid #006994;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 6px 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .main table.table-fiches tbody td {
+    display: block;
+    overflow: hidden;
+    border: 0 !important;
+    border-bottom: 1px dashed #edf0f4 !important;
+    padding: 6px 0 !important;
+    font-size: 0.86rem;
+    text-align: right;
+    white-space: normal;
+    word-break: break-word;
+    background: transparent !important;
+  }
+
+  .main table.table-fiches tbody td:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .main table.table-fiches tbody td::before {
+    content: attr(data-label);
+    float: left;
+    max-width: 45%;
+    margin-right: 12px;
+    font-weight: 600;
+    color: #5a6a7e;
+    text-align: left;
+    font-size: 0.8rem;
+  }
+
+  /* Contenu aligné à droite, même si la cellule était centrée */
+  .main table.table-fiches tbody td:not(.td-plein):not([data-label=""]) .text-center,
+  .main table.table-fiches tbody td.text-center:not(.td-plein):not([data-label=""]) {
+    text-align: right !important;
+  }
+
+  /* Première cellule = titre de la fiche */
+  .main table.table-fiches tbody td:first-child {
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+
+  /* Ligne "aucun résultat" ou cellule fusionnée : pas d'étiquette */
+  .main table.table-fiches tbody td.td-plein,
+  .main table.table-fiches tbody td[data-label=""] {
+    text-align: center;
+  }
+
+  .main table.table-fiches tbody td.td-plein::before,
+  .main table.table-fiches tbody td[data-label=""]::before {
+    display: none;
+  }
+
+  .main table.table-fiches tbody tr:has(> td.td-plein:only-child) {
+    border-left-width: 1px;
+    box-shadow: none;
+  }
+
+  /* Boutons d'action : regroupés en bas de la fiche, faciles à toucher */
+  .main table.table-fiches tbody td.td-actions {
+    text-align: right;
+    padding-top: 8px !important;
+    margin-top: 2px;
+    border-top: 1px solid #edf0f4 !important;
+  }
+
+  .main table.table-fiches tbody td.td-actions::before {
+    display: none;
+  }
+
+  .main table.table-fiches tbody td.td-actions > div:not(.btn),
+  .main table.table-fiches tbody td.td-actions > .d-flex,
+  .main table.table-fiches tbody td.td-actions > .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+
+  .main table.table-fiches tbody td.td-actions .btn {
+    min-width: 38px;
+    min-height: 34px;
+  }
+
+  /* Pied de tableau (totaux) */
+  .main table.table-fiches tfoot {
+    display: block;
+  }
+
+  .main table.table-fiches tfoot tr {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  /* ---------- Barres "Filtres + boutons" : boutons côte à côte, même largeur ---------- */
+  .main .card-body > .d-flex.justify-content-between:has(> .d-flex .btn) > .d-flex:has(.btn) {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap !important;
+    gap: 8px;
+  }
+
+  .main .card-body > .d-flex.justify-content-between:has(> .d-flex .btn) > .d-flex:has(.btn) > .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    white-space: normal;
+    text-align: center;
   }
 
   /* ---------- Formulaires ---------- */
@@ -196,12 +324,5 @@
   /* ---------- Fenêtres modales ---------- */
   .modal-dialog {
     margin: 0.5rem;
-  }
-}
-
-/* Très petits écrans : les boutons d'action prennent toute la largeur */
-@media (max-width: 380px) {
-  .main .card-body > .d-flex.justify-content-between > .d-flex .btn {
-    flex: 1 1 auto;
   }
 }
