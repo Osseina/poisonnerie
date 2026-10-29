@@ -1,6 +1,6 @@
 import { API_BASE_URL } from '../config';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -8,7 +8,12 @@ const Login = () => {
     telephone: '', // Changé de 'identifiant' à 'telephone'
     mot_de_passe: ''
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState(() => {
+    // Message laissé par une déconnexion automatique (session expirée)
+    const msg = sessionStorage.getItem('loginMessage') || '';
+    sessionStorage.removeItem('loginMessage');
+    return msg;
+  });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -122,9 +127,9 @@ const Login = () => {
         
         // Redirection selon le profil
         if (data.user.profile === 'gestionnaire') {
-          navigate('/dashboard'); // Gestionnaire va au dashboard
+          navigate('/dashboard', { replace: true }); // Gestionnaire va au dashboard
         } else {
-          navigate('/ventes'); // Vendeur va directement aux ventes
+          navigate('/ventes', { replace: true }); // Vendeur va directement aux ventes
         }
       } else {
         setError(data.message || 'Numéro de téléphone ou mot de passe incorrect');
@@ -147,6 +152,25 @@ const Login = () => {
   };
 
   const country = getCountryInfo();
+
+  // Déjà connecté (jeton présent et non expiré) : pas de page de connexion,
+  // on renvoie dans l'application. Évite d'y revenir avec le bouton « Retour ».
+  const dejaConnecte = (() => {
+    try {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (!token || !user.id) return null;
+      const payload = JSON.parse(window.atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+      if (payload.exp && payload.exp < Date.now() / 1000) return null;
+      return user;
+    } catch (e) {
+      return null;
+    }
+  })();
+
+  if (dejaConnecte) {
+    return <Navigate to={dejaConnecte.profile === 'gestionnaire' ? '/dashboard' : '/ventes'} replace />;
+  }
 
   return (
     <div className="min-vh-100 d-flex align-items-center" style={{ 

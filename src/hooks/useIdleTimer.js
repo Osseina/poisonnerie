@@ -30,7 +30,7 @@ const useIdleTimer = (timeout = 30 * 60 * 1000) => { // 30 minutes par défaut
           localStorage.removeItem('user');
           
           // Rediriger
-          navigate('/login', { 
+          navigate('/login', { replace: true, 
             state: { 
               message: 'Déconnecté pour inactivité (30 minutes sans activité)' 
             } 
