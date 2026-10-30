@@ -153,6 +153,8 @@ export const toggleProduitStatus = async (id, est_actif) => {
 // Récupérer les fournisseurs pour le select
 export const getFournisseurs = async () => {
   try {
+    // La liste des fournisseurs est réservée au gestionnaire
+    if (JSON.parse(localStorage.getItem('user') || '{}').profile !== 'gestionnaire') return [];
     const response = await fetch(`${API_BASE_URL}/fournisseurs/list.php?limit=1000`, {
       headers: getHeaders()
     });

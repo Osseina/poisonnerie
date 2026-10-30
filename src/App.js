@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  Outlet,
 } from 'react-router-dom';
 
 import Login from './pages/Login';
@@ -40,6 +41,12 @@ import ClientCreate from './pages/clients/ClientCreate';
 import ClientEdit from './pages/clients/ClientEdit';
 import DemandesValidation from './pages/stocks/DemandesValidation';
 
+// Pages réservées au gestionnaire : un vendeur est renvoyé à l'accueil
+const ReserveGestionnaire = () => {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  return user.profile === 'gestionnaire' ? <Outlet /> : <Navigate to="/dashboard" replace />;
+};
+
 function App() {
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -61,23 +68,26 @@ function App() {
           />
         }>
           <Route path="/dashboard" element={<Dashboard refreshKey={refreshKey} />} />
-          <Route path="/users" element={<UserList />} />
-          <Route path="/users/create" element={<UserCreate />} />
-          <Route path="/users/:id" element={<UserDetails />} />
-          <Route path="/users/:id/edit" element={<UserEdit />} />
           <Route path="/profile" element={<Profile />} />
-
-          {/* Routes fournisseurs */}
-          <Route path="/fournisseurs" element={<FournisseurList />} />
-          <Route path="/fournisseurs/create" element={<FournisseurCreate />} />
-          <Route path="/fournisseurs/:id" element={<FournisseurDetails />} />
-          <Route path="/fournisseurs/:id/edit" element={<FournisseurEdit />} />
 
           {/* Routes categories */}
           <Route path="/categories" element={<CategorieList />} />
-          <Route path="/categories/create" element={<CategorieCreate />} />
           <Route path="/categories/:id" element={<CategorieDetails />} />
-          <Route path="/categories/edit/:id" element={<CategorieEdit />} />
+
+          {/* Réservé au gestionnaire : vendeurs, fournisseurs, gestion des catégories, validations */}
+          <Route element={<ReserveGestionnaire />}>
+            <Route path="/users" element={<UserList />} />
+            <Route path="/users/create" element={<UserCreate />} />
+            <Route path="/users/:id" element={<UserDetails />} />
+            <Route path="/users/:id/edit" element={<UserEdit />} />
+            <Route path="/fournisseurs" element={<FournisseurList />} />
+            <Route path="/fournisseurs/create" element={<FournisseurCreate />} />
+            <Route path="/fournisseurs/:id" element={<FournisseurDetails />} />
+            <Route path="/fournisseurs/:id/edit" element={<FournisseurEdit />} />
+            <Route path="/categories/create" element={<CategorieCreate />} />
+            <Route path="/categories/edit/:id" element={<CategorieEdit />} />
+            <Route path="/demandes-validation" element={<DemandesValidation />} />
+          </Route>
 
           {/* Routes produits */}
           <Route path="/produits" element={<ProduitList />} />
@@ -106,8 +116,6 @@ function App() {
           <Route path="/clients/:id" element={<ClientDetails />} />
           <Route path="/clients/edit/:id" element={<ClientEdit />} />
 
-          {/* Demandes validation */}
-          <Route path="/demandes-validation" element={<DemandesValidation />} />
         </Route>
 
         {/* Redirections */}

@@ -337,7 +337,7 @@ const Header = () => {
                     }}
                   />
                   <span className="d-none d-md-block dropdown-toggle ps-2">
-                    {user.prenom || user.nom || 'Admin'}
+                    {user.prenom || user.nom || 'Mon compte'}
                   </span>
                 </>
               )}

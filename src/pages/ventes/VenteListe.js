@@ -60,8 +60,8 @@ const VenteListe = () => {
       // Calculer les statistiques
       const statsCalc = {
         total: response.data.pagination.total,
-        totalMontant: ventesData.reduce((acc, v) => acc + (v.total || 0), 0),
-        totalArticles: ventesData.reduce((acc, v) => acc + (v.nb_articles || 0), 0),
+        totalMontant: ventesData.reduce((acc, v) => acc + (parseFloat(v.total) || 0), 0),
+        totalArticles: ventesData.reduce((acc, v) => acc + (parseFloat(v.nb_articles) || 0), 0),
         parMode: {}
       };
       
@@ -75,7 +75,7 @@ const VenteListe = () => {
           };
         }
         statsCalc.parMode[mode].count++;
-        statsCalc.parMode[mode].montant += vente.total || 0;
+        statsCalc.parMode[mode].montant += parseFloat(vente.total) || 0;
       });
       
       setStats(statsCalc);

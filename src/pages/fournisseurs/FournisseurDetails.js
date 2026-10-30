@@ -12,9 +12,8 @@ const FournisseurDetails = () => {
 
   // Récupérer l'utilisateur connecté pour les permissions
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
-  const isAdmin = currentUser.profile === 'admin';
   const isGestionnaire = currentUser.profile === 'gestionnaire';
-  const canModify = isAdmin || isGestionnaire;
+  const canModify = isGestionnaire;
 
   useEffect(() => {
     loadFournisseur();
@@ -375,7 +374,7 @@ const FournisseurDetails = () => {
                   )}
 
                   {/* Bouton Supprimer */}
-                  {isAdmin && (
+                  {isGestionnaire && (
                     <div style={{ position: 'relative' }}>
                       <button 
                         className="btn btn-sm"

@@ -4,6 +4,7 @@ import './index.css';
 import './responsive.css';
 import './sessionGuard';
 import './responsiveTables';
+import './reseau';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

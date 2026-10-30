@@ -1,0 +1,20 @@
+# Appelle l'API toutes les 10 minutes pour que le serveur gratuit Render ne s'endorme pas
+# (il s'endort après 15 minutes sans visite et met ensuite ~30 s à se réveiller).
+name: Garder le serveur éveillé
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  reveil:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Appeler l'API
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 120 https://stock-api-poissonnerie.onrender.com/)
+          echo "Réponse du serveur : $code"
+          # 403 est la réponse normale de la racine de l'API
+          [ "$code" = "403" ] || [ "$code" = "200" ]

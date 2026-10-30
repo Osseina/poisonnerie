@@ -14,7 +14,7 @@ const CommandeDetails = () => {
   const [activeTab, setActiveTab] = useState('infos'); // 'infos', 'client', 'articles', 'historique'
 
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
-  const canModify = ['admin', 'gestionnaire', 'vendeur'].includes(currentUser.profile);
+  const canModify = ['gestionnaire', 'vendeur'].includes(currentUser.profile);
 
   // Définition des statuts
   const STATUTS_COMMANDE = {

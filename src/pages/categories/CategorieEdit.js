@@ -17,7 +17,7 @@ const CategorieEdit = () => {
 
   // Récupérer l'utilisateur connecté pour les permissions
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
-  const canEdit = ['admin', 'gestionnaire'].includes(currentUser.profile);
+  const canEdit = ['gestionnaire'].includes(currentUser.profile);
 
   useEffect(() => {
     if (!canEdit) {

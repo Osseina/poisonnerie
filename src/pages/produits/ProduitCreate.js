@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { createProduit, getFournisseurs, getCategories } from '../../services/produitService';
 
 const ProduitCreate = () => {
+  // Les prix sont fixés par le gestionnaire
+  const prixModifiables = JSON.parse(localStorage.getItem('user') || '{}').profile === 'gestionnaire';
   const navigate = useNavigate();
   const [fournisseurs, setFournisseurs] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -285,6 +287,7 @@ const ProduitCreate = () => {
                           type="number"
                           className="form-control"
                           name="prix_achat"
+                          disabled={!prixModifiables}
                           value={formData.prix_achat}
                           onChange={handleChange}
                           min="0"
@@ -300,12 +303,16 @@ const ProduitCreate = () => {
                           type="number"
                           className="form-control"
                           name="prix_vente"
+                          disabled={!prixModifiables}
                           value={formData.prix_vente}
                           onChange={handleChange}
                           min="0"
                           step="any"
                           style={{ borderRadius: '8px', border: '1px solid #ddd', padding: '10px' }}
                         />
+                        {!prixModifiables && (
+                          <small className="text-muted">Les prix sont fixés par le gestionnaire.</small>
+                        )}
                       </div>
                     </div>
                     

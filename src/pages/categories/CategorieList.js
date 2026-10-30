@@ -77,7 +77,7 @@ const CategorieList = () => {
 
   // Récupérer l'utilisateur connecté pour les permissions
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
-  const canCreate = ['admin', 'gestionnaire'].includes(currentUser.profile);
+  const canCreate = ['gestionnaire'].includes(currentUser.profile);
 
   const formatDate = (dateString) => {
     if (!dateString) return '-';

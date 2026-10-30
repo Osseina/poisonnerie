@@ -45,6 +45,8 @@ const ProduitList = () => {
 
   const loadFournisseurs = async () => {
     try {
+    // La liste des fournisseurs est réservée au gestionnaire
+    if (JSON.parse(localStorage.getItem('user') || '{}').profile !== 'gestionnaire') return;
       const response = await getFournisseurs(1, 100);
       setFournisseurs(response.data?.fournisseurs || []);
     } catch (err) {

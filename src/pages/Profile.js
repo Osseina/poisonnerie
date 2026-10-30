@@ -17,6 +17,12 @@ const Profile = () => {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState('');
   const [avatarKey, setAvatarKey] = useState(Date.now());
+  // Photo introuvable (ex. effacée au redémarrage du serveur) : on affiche les initiales
+  const [avatarEnErreur, setAvatarEnErreur] = useState(false);
+
+  useEffect(() => {
+    setAvatarEnErreur(false);
+  }, [avatarKey, user?.avatar_url]);
 
   // Fonction pour générer l'URL complète de l'avatar
   const getAvatarUrl = (avatar_url) => {
@@ -39,7 +45,7 @@ const Profile = () => {
 
     const avatarUrl = getAvatarUrl(user.avatar_url);
     
-    if (avatarUrl) {
+    if (avatarUrl && !avatarEnErreur) {
       return (
         <img 
           key={avatarKey}
@@ -53,12 +59,7 @@ const Profile = () => {
             border: '4px solid #006994',
             padding: '3px'
           }}
-          onError={(e) => {
-            console.log('Erreur chargement avatar, utilisation fallback');
-            e.target.style.display = 'none';
-            // Afficher le fallback
-            e.target.parentElement.querySelector('.avatar-fallback').style.display = 'flex';
-          }}
+          onError={() => setAvatarEnErreur(true)}
         />
       );
     }
@@ -697,7 +698,7 @@ const Profile = () => {
                       {/* Message informatif */}
                       <div className="alert alert-info mt-3">
                         <i className="bi bi-info-circle me-2"></i>
-                        Pour modifier vos informations personnelles (nom, prénom, téléphone), contactez un administrateur.
+                        Pour modifier vos informations personnelles (nom, prénom, téléphone), contactez le gestionnaire.
                       </div>
                     </div>
                   )}

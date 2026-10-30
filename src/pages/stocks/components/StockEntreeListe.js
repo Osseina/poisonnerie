@@ -70,7 +70,7 @@ const StockEntreeListe = () => {
     setEditForm({
       quantite: entree.quantite,
       prix_vente: entree.prix_vente || '',
-      lot_prix_achat_gros: entree.lot_prix_achat_gros || '',
+      prix_achat_unitaire: entree.lot_prix_revient_unitaire ? parseFloat(entree.lot_prix_revient_unitaire) : '',
       numero_livraison: entree.numero_livraison || ''
     });
   };
@@ -92,7 +92,7 @@ const StockEntreeListe = () => {
       
       if (editForm.quantite) updateData.quantite = parseFloat(editForm.quantite);
       if (editForm.prix_vente) updateData.prix_vente = parseFloat(editForm.prix_vente);
-      if (editForm.lot_prix_achat_gros) updateData.lot_prix_achat_gros = parseFloat(editForm.lot_prix_achat_gros);
+      if (editForm.prix_achat_unitaire) updateData.lot_prix_revient_unitaire = parseFloat(editForm.prix_achat_unitaire);
       if (editForm.numero_livraison) updateData.numero_livraison = editForm.numero_livraison;
 
       await updateEntreeStock(id, updateData);
@@ -233,7 +233,7 @@ const StockEntreeListe = () => {
                   <th>Fournisseur</th>
                   <th>Quantité</th>
                   <th>Prix vente</th>
-                  <th>Prix achat</th>
+                  <th>Prix achat (unité)</th>
                   <th>N° livraison</th>
                   <th>Créateur</th>
                   <th>Actions</th>
@@ -282,8 +282,9 @@ const StockEntreeListe = () => {
                             <input
                               type="number"
                               className="form-control form-control-sm"
-                              name="lot_prix_achat_gros"
-                              value={editForm.lot_prix_achat_gros}
+                              name="prix_achat_unitaire"
+                              aria-label="Prix d'achat unitaire"
+                              value={editForm.prix_achat_unitaire}
                               onChange={handleEditChange}
                               step="0.01"
                               style={{ width: '100px' }}
@@ -336,8 +337,13 @@ const StockEntreeListe = () => {
                             ) : '-'}
                           </td>
                           <td>
-                            {entree.lot_prix_achat_gros ? (
-                              <span className="text-warning">{formatPrice(entree.lot_prix_achat_gros)}</span>
+                            {parseFloat(entree.lot_prix_revient_unitaire) > 0 ? (
+                              <>
+                                <span className="text-warning fw-semibold">{formatPrice(entree.lot_prix_revient_unitaire)}</span>
+                                {parseFloat(entree.lot_prix_achat_gros) > 0 && (
+                                  <div className="small text-muted">total {formatPrice(entree.lot_prix_achat_gros)}</div>
+                                )}
+                              </>
                             ) : '-'}
                           </td>
                           <td>{entree.numero_livraison || '-'}</td>

@@ -107,13 +107,8 @@ const Dashboard = () => {
 
     } catch (error) {
       console.error('Erreur chargement dashboard:', error);
-      setError('Erreur de chargement des données');
-      
-      // Données de secours minimales
-      setStats(prev => ({
-        ...prev,
-        ventes: { aujourdhui: 289512, semaine: 1250000, mois: 3250000, variation: 12.5 }
-      }));
+      // Pas de chiffres affichés tant que les vraies données ne sont pas arrivées
+      setError(error.message || 'Erreur de chargement des données');
     } finally {
       setLoading(false);
     }
@@ -270,11 +265,19 @@ const Dashboard = () => {
       }} />
 
       {error && (
-        <div className="alert alert-danger mb-4">
-          <i className="bi bi-exclamation-triangle-fill me-2"></i>
-          {error}
+        <div className="alert alert-danger mb-4 d-flex flex-wrap align-items-center gap-2">
+          <span className="flex-grow-1">
+            <i className="bi bi-exclamation-triangle-fill me-2"></i>
+            {error}
+          </span>
+          <button type="button" className="btn btn-sm btn-outline-danger" onClick={loadDashboardData}>
+            <i className="bi bi-arrow-repeat me-1"></i>
+            Réessayer
+          </button>
         </div>
       )}
+
+      {!error && (<>
 
       {/* Message pour les vendeurs */}
       {isVendeur && (
@@ -988,6 +991,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      </>)}
     </div>
   );
 };

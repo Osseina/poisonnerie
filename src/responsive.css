@@ -475,3 +475,25 @@
 .sidebar-nav .nav-content a {
   padding: 9px 0 9px 36px;
 }
+
+/* Bandeau "Pas de connexion Internet" */
+.bandeau-reseau {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #b02a37;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+}
+.bandeau-reseau.visible {
+  display: flex;
+}
