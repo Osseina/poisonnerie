@@ -25,7 +25,8 @@ window.addEventListener('load', majBandeau);
 if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
-      .register(`${process.env.PUBLIC_URL}/service-worker.js`)
+      // Adresse relative à la page : fonctionne aussi dans le dossier /poisonnerie/ de GitHub Pages
+      .register('./service-worker.js')
       .catch((err) => console.warn('Service worker non enregistré :', err));
   });
 }
